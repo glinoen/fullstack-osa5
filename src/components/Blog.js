@@ -7,7 +7,6 @@ class Blog extends React.Component {
     super(props)
     this.state = {
       showExtra: false,
-      blogi: this.props.blog,
       currentUser: this.props.user
     }
   }
@@ -18,7 +17,7 @@ class Blog extends React.Component {
 
   likeMe = async () => {
     
-    let blogi = this.state.blogi
+    let blogi = this.props.blog
     blogi.likes = blogi.likes + 1
     
 
@@ -31,9 +30,9 @@ class Blog extends React.Component {
   }
 
   delete = async () => {
-    if(window.confirm('delete ' + this.state.blogi.title + ' by ' + this.state.blogi.author +'?'  )){
+    if(window.confirm('delete ' + this.props.blog.title + ' by ' + this.props.blog.author +'?'  )){
       try {
-        await blogService.destroy(this.state.blogi)
+        await blogService.destroy(this.props.blog)
         await this.props.action()
       } catch (exception) {
         console.log(exception)
@@ -44,14 +43,14 @@ class Blog extends React.Component {
 
   render() {
     const showExtra = this.state.showExtra
-    const blogi = this.state.blogi
+    const blogi = this.props.blog
     let blogiElement
 
     if (!showExtra) {
       blogiElement = <div onClick={() => this.toggleVisibility()}>
       {blogi.title} {blogi.author}
     </div> 
-    } else if (this.state.blogi.user === undefined || this.state.blogi.user.username === this.state.currentUser.username ){
+    } else if (blogi.user === undefined || blogi.user.username === this.state.currentUser.username ){
       blogiElement = <div>
       <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
         <a href={blogi.url}>{blogi.url} </a>
@@ -62,7 +61,7 @@ class Blog extends React.Component {
     } else {
       blogiElement = <div>
       <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
-        <p>{blogi.url}</p>
+        <a href={blogi.url}>{blogi.url} </a>
         <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
         <p>added by {blogi.user.name}</p>
       </div> 
