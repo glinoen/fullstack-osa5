@@ -1,4 +1,5 @@
 import React from 'react'
+import blogService from '../services/blogs'
 
 class Blog extends React.Component {
   constructor(props) {
@@ -11,6 +12,20 @@ class Blog extends React.Component {
 
   toggleVisibility = () => {
     this.setState({showExtra: !this.state.showExtra})
+  }
+
+  likeMe = async () => {
+    
+    let blogi = this.state.blogi
+    blogi.likes = blogi.likes + 1
+    
+
+    try {
+      await blogService.like(blogi)
+      await this.props.action()
+    } catch (exception) {
+
+    }
   }
 
   render() {
@@ -26,7 +41,7 @@ class Blog extends React.Component {
       blogiElement = <div>
       <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
       <p>{blogi.url}</p>
-      <p>{blogi.likes} likes  <button>like</button></p>
+      <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
       <p>added by {blogi.user.name}</p>
     </div> 
     }

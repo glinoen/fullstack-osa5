@@ -77,6 +77,12 @@ class App extends React.Component {
     
   }
 
+  f5 = () => {
+    blogService.getAll().then(blogs =>
+      this.setState({ blogs })
+    )
+  }
+
   render() {
     const loginForm = () => (
       <div>
@@ -118,8 +124,8 @@ class App extends React.Component {
           </tbody>
         </table>
 
-        {this.state.blogs.map(blog => 
-          <Blog key={blog._id} blog={blog}/>
+        {this.state.blogs.sort((a, b) => b.likes - a.likes).map(blog => 
+          <Blog action={this.f5} key={blog._id} blog={blog}/>
         )}
       </div>
     )
