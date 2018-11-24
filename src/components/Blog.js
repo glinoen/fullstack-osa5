@@ -6,8 +6,7 @@ class Blog extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showExtra: false,
-      currentUser: this.props.user
+      showExtra: false
     }
   }
 
@@ -47,12 +46,12 @@ class Blog extends React.Component {
     let blogiElement
 
     if (!showExtra) {
-      blogiElement = <div onClick={() => this.toggleVisibility()}>
+      blogiElement = <div onClick={() => this.toggleVisibility()} className="content">
       {blogi.title} {blogi.author}
     </div> 
-    } else if (blogi.user === undefined || blogi.user.username === this.state.currentUser.username ){
+    } else if (blogi.user === undefined || blogi.user.username === this.props.user.username ){
       blogiElement = <div>
-      <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
+      <div onClick={() => this.toggleVisibility()} className="content">{blogi.title} {blogi.author}</div>
         <a href={blogi.url}>{blogi.url} </a>
         <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
         <p>added by {blogi.user.name}</p>
@@ -60,7 +59,7 @@ class Blog extends React.Component {
       </div> 
     } else {
       blogiElement = <div>
-      <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
+      <div onClick={() => this.toggleVisibility()} className="content">{blogi.title} {blogi.author}</div>
         <a href={blogi.url}>{blogi.url} </a>
         <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
         <p>added by {blogi.user.name}</p>
@@ -76,7 +75,7 @@ class Blog extends React.Component {
     }
 
     return (
-      <div style={blogStyle} >
+      <div style={blogStyle} className="wrapper">
         {blogiElement}
       </div>
     )
