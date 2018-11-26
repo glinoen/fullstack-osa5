@@ -24,10 +24,10 @@ class App extends React.Component {
       this.setState({ blogs })
     )
 
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      this.setState({ user })
+      this.setState({ user:user })
       blogService.setToken(user.token)
     }
   }
@@ -85,7 +85,7 @@ class App extends React.Component {
 
   render() {
     const loginForm = () => (
-      <div>
+      <div className="content">
         <h2>Log in to application</h2>
 
         <form onSubmit={this.login}>
@@ -113,7 +113,7 @@ class App extends React.Component {
     )
 
     const blogForm = () => (
-      <div>
+      <div className="content">
         <h2>blogs</h2>
         <table>
           <tbody>
@@ -125,7 +125,7 @@ class App extends React.Component {
         </table>
 
         {this.state.blogs.sort((a, b) => b.likes - a.likes).map(blog => 
-          <Blog action={this.f5} key={blog._id} blog={blog} user={this.state.user}/>
+          <Blog key={blog._id} action={this.f5}  blog={blog} user={this.state.user}/>
         )}
       </div>
     )
@@ -144,7 +144,7 @@ class App extends React.Component {
     
 
     return (
-      <div>
+      <div className="wrapper">
         {this.state.error !== null && error()}
         {this.state.newBlog !== null && notifyNew()}
         

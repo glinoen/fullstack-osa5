@@ -50,16 +50,16 @@ class Blog extends React.Component {
       {blogi.title} {blogi.author}
     </div> 
     } else if (blogi.user === undefined || blogi.user.username === this.props.user.username ){
-      blogiElement = <div>
-      <div onClick={() => this.toggleVisibility()} className="content">{blogi.title} {blogi.author}</div>
+      blogiElement = <div className="content">
+      <div onClick={() => this.toggleVisibility()} >{blogi.title} {blogi.author}</div>
         <a href={blogi.url}>{blogi.url} </a>
         <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
         <p>added by {blogi.user.name}</p>
         <button onClick={this.delete}>delete</button>
       </div> 
     } else {
-      blogiElement = <div>
-      <div onClick={() => this.toggleVisibility()} className="content">{blogi.title} {blogi.author}</div>
+      blogiElement = <div className="content">
+      <div onClick={() => this.toggleVisibility()}>{blogi.title} {blogi.author}</div>
         <a href={blogi.url}>{blogi.url} </a>
         <p>{blogi.likes} likes  <button onClick={() => this.likeMe()}>like</button></p>
         <p>added by {blogi.user.name}</p>

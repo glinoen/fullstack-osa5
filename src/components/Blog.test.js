@@ -28,6 +28,7 @@ describe('<Blog />', () => {
     expect(contentDiv.text()).toContain(blogi.title) &&
     expect(contentDiv.text()).toContain(blogi.likes) &&
     expect(contentDiv.text()).toContain(blogi.url) 
+    console.log(contentDiv.text())
 
   })
 })
